@@ -24,6 +24,28 @@ class Hospital:
         self.root.grid_rowconfigure(3, weight=2) #Detail Frame
         self.root.grid_columnconfigure(0, weight=1)
 
+        
+        self.Nameoftablets = StringVar()
+        self.Reference = StringVar()
+        self.Dose = StringVar()
+        self.NumberofTablets = StringVar()
+        self.Lot = StringVar()
+        self.IssueDate = StringVar()
+        self.ExpDate = StringVar()
+        self.DailyDose = StringVar()
+        self.SideEffect = StringVar()
+        self.FurtherInformation = StringVar()
+        self.StorageAdvice = StringVar()
+        self.DrivingUsingMachine = StringVar()
+        self.HowToUseMedication = StringVar()
+        self.PatientId = StringVar()
+        self.nhsNumber = StringVar()
+        self.PatientName = StringVar()
+        self.DateOfBirth = StringVar()
+        self.PatientAddress = StringVar()
+        
+        
+        
         labeltitle = Label(self.root,bd=20, relief= RIDGE, text= "Hospital Management System", fg="red", bg="white", font=("times new roman", 30, "bold"))
         labeltitle.grid(row=0, column=0, columnspan=4, sticky="ew", pady=(0,10))
 
@@ -88,42 +110,43 @@ class Hospital:
         lblNameTablet= Label(DataFrameLeft, text = "Names of Tablet", font = ("times new roman",12,"bold"),padx=2,pady=6)
         lblNameTablet.grid(row=0,column=0, sticky="w")
 
-        comboNameTablet= ttk.Combobox(DataFrameLeft,font = ("times new roman",12,"bold"),
+        comboNameTablet= ttk.Combobox(DataFrameLeft,textvariable =self.Nameoftablets ,font = ("times new roman",12,"bold"), state= "readonltextvariable =self.,y",
                                                                                            width= 23)
         comboNameTablet["values"] = ("Nice", "Corona Vaccine", "Acetaminophen", "Aderall", "Amlodipine", "Ativan")
+        comboNameTablet.current(0)
         comboNameTablet.grid(row=0, column=1, sticky="ew")
 
         lblInfo = Label(DataFrameLeft, text="Further Information", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblInfo.grid(row=0, column=2, sticky="w")
 
-        entry_Info = ttk.Entry(DataFrameLeft, font =("arial",12), width =20)
+        entry_Info = ttk.Entry(DataFrameLeft,textvariable =self.FurtherInformation , font =("arial",12), width =20)
         entry_Info.grid(row=0, column= 3, sticky="ew")
 
         #---------------Second Row--------------------------------------
         lblReference = Label(DataFrameLeft, text="Reference No", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblReference.grid(row=1, column=0, sticky="w")
 
-        entry_Ref = ttk.Entry(DataFrameLeft, font =("arial",12), width =21)
+        entry_Ref = ttk.Entry(DataFrameLeft,textvariable =self.Reference, font =("arial",12), width =21)
         entry_Ref.grid(row=1, column= 1, sticky="ew")
 
-        lblBlood = Label(DataFrameLeft, text="Blood Pressure", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
-        lblBlood.grid(row=1, column=2, sticky="w")
+        lblDrivingMachine = Label(DataFrameLeft, text="Blood Pressure", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
+        lblDrivingMachine.grid(row=1, column=2, sticky="w")
 
-        entry_Blood = ttk.Entry(DataFrameLeft, font =("arial",12), width =20)
-        entry_Blood.grid(row=1, column= 3, sticky="ew")
+        entry_DrivingMachine = ttk.Entry(DataFrameLeft,textvariable =self.DrivingUsingMachine, font =("arial",12), width =20)
+        entry_DrivingMachine.grid(row=1, column= 3, sticky="ew")
 
         
         #-----------------Thired Row---------------------------------------------
         lblDose = Label(DataFrameLeft, text="Dose", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblDose.grid(row=2, column=0, sticky="w")
 
-        entry_Dose = ttk.Entry(DataFrameLeft, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
+        entry_Dose = ttk.Entry(DataFrameLeft,textvariable =self.Dose, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
         entry_Dose.grid(row=2, column= 1, sticky="ew")
 
         lblStorage = Label(DataFrameLeft, text="Storage Advice", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblStorage.grid(row=2, column=2, sticky="w")
 
-        entry_Storage = ttk.Entry(DataFrameLeft, font =("arial",12), width =20)
+        entry_Storage = ttk.Entry(DataFrameLeft,textvariable =self.StorageAdvice, font =("arial",12), width =20)
         entry_Storage.grid(row=2, column= 3, sticky="ew")
 
         
@@ -131,26 +154,26 @@ class Hospital:
         lblTabletsnum = Label(DataFrameLeft, text="No. of Tablets", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblTabletsnum.grid(row=3, column=0, sticky="w")
 
-        entry_Tabletsnum = ttk.Entry(DataFrameLeft, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
+        entry_Tabletsnum = ttk.Entry(DataFrameLeft,textvariable =self.NumberofTablets, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
         entry_Tabletsnum.grid(row=3, column= 1, sticky="ew")
 
-        lblMedication = Label(DataFrameLeft, text="Blood Pressure", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
+        lblMedication = Label(DataFrameLeft, text="Medication", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblMedication.grid(row=3, column=2, sticky="w")
 
-        entry_Medication = ttk.Entry(DataFrameLeft, font =("arial",12), width =20)
+        entry_Medication = ttk.Entry(DataFrameLeft,textvariable =self.HowToUseMedication, font =("arial",12), width =20)
         entry_Medication.grid(row=3, column= 3, sticky="ew")
 
          #---------------Fifth Row--------------------------------------
         lblLot = Label(DataFrameLeft, text="Lot", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblLot.grid(row=4, column=0, sticky="w")
 
-        entry_Lot = ttk.Entry(DataFrameLeft, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
+        entry_Lot = ttk.Entry(DataFrameLeft,textvariable =self.Lot, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
         entry_Lot.grid(row=4, column= 1, sticky="ew")
 
         lblPatientId = Label(DataFrameLeft, text="Patient Id", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblPatientId.grid(row=4, column=2, sticky="w")
 
-        entry_PatientId = ttk.Entry(DataFrameLeft, font =("arial",12), width =20)
+        entry_PatientId = ttk.Entry(DataFrameLeft,textvariable =self.PatientId, font =("arial",12), width =20)
         entry_PatientId.grid(row=4, column= 3, sticky="ew")
 
 
@@ -158,52 +181,52 @@ class Hospital:
         lblIssueDate = Label(DataFrameLeft, text="Issue Date", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblIssueDate.grid(row=5, column=0, sticky="w")
 
-        entry_IssueDate = ttk.Entry(DataFrameLeft, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
+        entry_IssueDate = ttk.Entry(DataFrameLeft,textvariable =self.IssueDate, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
         entry_IssueDate.grid(row=5, column= 1, sticky="ew")
 
         lblNhNum = Label(DataFrameLeft, text="NHS Number", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblNhNum.grid(row=5, column=2, sticky="w")
 
-        entry_NhNum = ttk.Entry(DataFrameLeft, font =("arial",12), width =20)
+        entry_NhNum = ttk.Entry(DataFrameLeft,textvariable =self.nhsNumber, font =("arial",12), width =20)
         entry_NhNum.grid(row=5, column= 3, sticky="ew")
 
          #---------------Seventh Row--------------------------------------
         lblExpDate = Label(DataFrameLeft, text="Expairy Date", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblExpDate.grid(row=6, column=0, sticky="w")
 
-        entry_ExpDate = ttk.Entry(DataFrameLeft, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
+        entry_ExpDate = ttk.Entry(DataFrameLeft,textvariable =self.ExpDate, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
         entry_ExpDate.grid(row=6, column= 1, sticky="ew")
 
         lblPatientName = Label(DataFrameLeft, text="Patient Name", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblPatientName.grid(row=6, column=2, sticky="w")
 
-        entry_PatientName = ttk.Entry(DataFrameLeft, font =("arial",12), width =20)
+        entry_PatientName = ttk.Entry(DataFrameLeft,textvariable =self.PatientName, font =("arial",12), width =20)
         entry_PatientName.grid(row=6, column= 3, sticky="ew")
 
          #---------------Eigth Row--------------------------------------
         lblDailyDose = Label(DataFrameLeft, text="Daily Dose", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblDailyDose.grid(row=7, column=0, sticky="w")
 
-        entry_DailyDose = ttk.Entry(DataFrameLeft, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
+        entry_DailyDose = ttk.Entry(DataFrameLeft,textvariable =self.DailyDose, font =("arial",12), width =21, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
         entry_DailyDose.grid(row=7, column= 1, sticky="ew")
 
         lblDOB = Label(DataFrameLeft, text="Date Of Birth", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblDOB.grid(row=7, column=2, sticky="w")
 
-        entry_DOB = ttk.Entry(DataFrameLeft, font =("arial",12), width =20, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
+        entry_DOB = ttk.Entry(DataFrameLeft,textvariable =self.DateOfBirth, font =("arial",12), width =20, validate="key", validatecommand=(DataFrameLeft.register(lambda P: P.isdigit()or P ==""), '%P'))
         entry_DOB.grid(row=7, column= 3, sticky="ew")
 
          #---------------Ninth Row--------------------------------------
         lblSideEffect = Label(DataFrameLeft, text="Side Effects", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblSideEffect.grid(row=8, column=0, sticky="w")
 
-        entry_SideEffect = ttk.Entry(DataFrameLeft, font =("arial",12), width =21)
+        entry_SideEffect = ttk.Entry(DataFrameLeft,textvariable =self.SideEffect, font =("arial",12), width =21)
         entry_SideEffect.grid(row=8, column= 1, sticky="ew")
 
         lblPatientAddress = Label(DataFrameLeft, text="Patient Address", font=("times new roman", 12, "bold"), padx=2 , pady= 6)
         lblPatientAddress.grid(row=8, column=2, sticky="w")
 
-        entry_PatientAddress = ttk.Entry(DataFrameLeft, font =("arial",12), width =20)
+        entry_PatientAddress = ttk.Entry(DataFrameLeft,textvariable =self.PatientAddress, font =("arial",12), width =20)
         entry_PatientAddress.grid(row=8, column= 3, sticky="ew")
 
        
@@ -214,7 +237,7 @@ class Hospital:
         # Adjust the layout of elements in DataFrameLeft
         elements = [
         (lblNameTablet, comboNameTablet, lblInfo, entry_Info),
-        (lblReference, entry_Ref, lblBlood, entry_Blood),
+        (lblReference, entry_Ref, lblDrivingMachine, entry_DrivingMachine),
         (lblDose, entry_Dose, lblStorage, entry_Storage),
         (lblTabletsnum, entry_Tabletsnum, lblMedication, entry_Medication),
         (lblLot, entry_Lot, lblPatientId, entry_PatientId),
@@ -264,22 +287,22 @@ class Hospital:
         #                               Adding buttons with in the boarder label frame
         
         btnPrescription = Button(ButtonFrame, text = "Prescription", bg = 'green', fg='white', font=("arial", 12,"bold"), width = 20, height= 0, padx=2, pady=6)
-        btnPrescription.grid(row =0, column=0, padx=5, pady=5, sticky="nsew")
+        btnPrescription.grid(row =0, column=0, padx=5, pady=1, sticky="nsew")
         
-        btnPrescriptionData = Button(ButtonFrame, text = "Prescription Data", bg = 'green', fg='white', font=("arial", 12,"bold"), width = 20, height= 0, padx=2, pady=6)
-        btnPrescriptionData.grid(row =0, column=1, padx=5, pady=5,  sticky="nsew")
+        btnPrescriptionData = Button(ButtonFrame,command=self.iPrescriptionData , text = "Prescription Data", bg = 'green', fg='white', font=("arial", 12,"bold"), width = 20, height= 0, padx=2, pady=6)
+        btnPrescriptionData.grid(row =0, column=1, padx=5, pady=1,  sticky="nsew")
 
         btnUpdate = Button(ButtonFrame, text = "Update", bg = 'green', fg='white', font=("arial", 12,"bold"), width = 20, height= 0, padx=2, pady=6)
-        btnUpdate.grid(row =0, column=2, padx=5, pady=5,  sticky="nsew")
+        btnUpdate.grid(row =0, column=2, padx=5, pady=1,  sticky="nsew")
 
         btnDelete = Button(ButtonFrame, text = "Delete", bg = 'green', fg='white', font=("arial", 12,"bold"), width = 20, height= 0, padx=2, pady=6)
-        btnDelete.grid(row =0, column=3, padx=5, pady=5,  sticky="nsew")
+        btnDelete.grid(row =0, column=3, padx=5, pady=1,  sticky="nsew")
 
         btnClear = Button(ButtonFrame, text = "Clear", bg = 'green', fg='white', font=("arial", 12,"bold"), width = 20, height= 0, padx=2, pady=6)
-        btnClear.grid(row =0, column=4, padx=5, pady=5,  sticky="nsew")
+        btnClear.grid(row =0, column=4, padx=5, pady=1,  sticky="nsew")
 
         btnExit = Button(ButtonFrame, text = "Exit", bg = 'green', fg='white', font=("arial", 12,"bold"), width = 20, height= 0, padx=2, pady=6)
-        btnExit.grid(row =0, column=5, padx=5, pady=5,  sticky="nsew")
+        btnExit.grid(row =0, column=5, padx=5, pady=1,  sticky="nsew")
 
 
 
@@ -343,6 +366,70 @@ class Hospital:
         
         for column in columns:
             self.hospital_table.column(column, width=100)
+
+
+
+    #======================Functionality Declaration====================================
+    def iPrescriptionData(self):
+    # Check if required fields are empty before inserting into the database
+        if self.Nameoftablets.get() == "" or self.Reference.get() == "":
+            messagebox.showerror("Error", "All fields are required")
+            return  # Stop further execution if validation fails
+
+        try:
+        # Establish connection with MySQL
+            conn = mysql.connector.connect(
+                host="127.0.0.1",  # Make sure this matches your server setup
+                user="root",       # Default MySQL username
+                password="@Pp9842030782",       # Use your actual MySQL password if set
+                database="mydata"  # Ensure this database exists
+            )
+            print("Connected to database successfully")  # Confirmation message
+
+            my_cursor = conn.cursor()
+
+        # Insert data into the hospital table
+            my_cursor.execute(
+                "INSERT INTO hospital (NameOfTablets, Reference, Dose, NumberOfTablets, Lot, IssueDate, ExpDate, DailyDose, SideEffect, FurtherInformation, StorageAdvice, DrivingUsingMachine, HowToUseMedication, PatientId, nhsNumber, PatientName, DateOfBirth, PatientAddress) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                (
+                    self.Nameoftablets.get(),
+                    self.Reference.get(),
+                    self.Dose.get(),
+                    self.NumberofTablets.get(),
+                    self.Lot.get(),
+                    self.IssueDate.get(),
+                    self.ExpDate.get(),
+                    self.DailyDose.get(),
+                    self.SideEffect.get(),
+                    self.FurtherInformation.get(),
+                    self.StorageAdvice.get(),
+                    self.DrivingUsingMachine.get(),
+                    self.HowToUseMedication.get(),
+                    self.PatientId.get(),
+                    self.nhsNumber.get(),
+                    self.PatientName.get(),
+                    self.DateOfBirth.get(),
+                    self.PatientAddress.get()
+                )   
+        )
+
+        # Commit the changes and show a success message
+            conn.commit()
+            messagebox.showinfo("Success", "Data has been inserted successfully.")
+        
+        except mysql.connector.Error as e:
+            # Show the error message if something goes wrong
+            messagebox.showerror("Database Error", f"An error occurred: {e}")
+            print(f"Error: {e}")
+
+        finally:
+        # Ensure the connection is closed properly
+            if conn.is_connected():
+                conn.close()
+                print("Database connection closed")
+
+
+
 
 
         

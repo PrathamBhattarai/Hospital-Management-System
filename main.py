@@ -322,8 +322,10 @@ class Hospital:
 
         #             Creating Treeview Widget
         self.hospital_table= ttk.Treeview(DetailsFrame, column=("Name of Tablets", "Reference Number", "Dose", "No. of Tablets",
-                                                                "Lot", "Issue Date", "Expairy Date", "Daily Dose", "Storage", "NHS Number",
-                                                                   "Patient Name", "Address", "DOB"))
+                                                                "Lot", "Issue Date", "Expairy Date", "Daily Dose","Side Effect",
+                                                                "Further Information", "Storage Advice", "Driving Using Machine",
+                                                                "Medication","Patient Id","NHS Number", "Patient Name", 
+                                                                "Date Of Birth", "Patient Address"))
         
         # Creating Scroll Bars
         scrollInDetails_x = ttk.Scrollbar(DetailsFrame, orient = HORIZONTAL, command= self.hospital_table.xview)
@@ -345,24 +347,33 @@ class Hospital:
         self.hospital_table.heading("Dose", text="Dose")
         self.hospital_table.heading("No. of Tablets", text= "NO. OF Tablets ")
         self.hospital_table.heading("Lot", text="Lot")
-        self.hospital_table.heading("Daily Dose", text="Daily Dose")
         self.hospital_table.heading("Issue Date", text="Issue Date")
         self.hospital_table.heading("Expairy Date", text="Expairy Date")
-        self.hospital_table.heading("Storage", text="Storage")
+        self.hospital_table.heading("Daily Dose", text="Daily Dose")
+        self.hospital_table.heading("Side Effect", text="Side Effect")
+        self.hospital_table.heading("Further Information", text="Further Information")
+        self.hospital_table.heading("Storage Advice", text="Storage Advice")
+        self.hospital_table.heading("Driving Using Machine", text="Driving Using Machine")
+        self.hospital_table.heading("Medication", text="Medication")
+        self.hospital_table.heading("Patient Id", text="Patient Id")
         self.hospital_table.heading("NHS Number", text= "NHS Number")
         self.hospital_table.heading("Patient Name", text="Patient Name")
-        self.hospital_table.heading("Address", text= "Address")
-        self.hospital_table.heading("DOB", text="DOB")
+        self.hospital_table.heading("Date Of Birth", text= "Date Of Birth")
+        self.hospital_table.heading("Patient Address", text="Patient Address")
 
         self.hospital_table["show"] =  "headings"
 
         #Grid the Treeview widget
         self.hospital_table.grid(row=0, column=0, sticky="nsew")
+        self.fatch_data()
+        self.hospital_table.bind("<ButtonRelease-1>", self.get_cursor)
 
         #set the width of each column
         columns=["Name of Tablets", "Reference Number", "Dose", "No. of Tablets",
-                "Lot", "Issue Date", "Expairy Date", "Daily Dose", "Storage",
-                 "NHS Number", "Patient Name", "Address", "DOB"]
+                "Lot", "Issue Date", "Expairy Date", "Daily Dose","Side Effect",
+                "Further Information", "Storage Advice", "Driving Using Machine",
+                "Medication","Patient Id","NHS Number", "Patient Name", 
+                "Date Of Birth", "Patient Address"]
         
         for column in columns:
             self.hospital_table.column(column, width=100)
@@ -415,6 +426,7 @@ class Hospital:
 
         # Commit the changes and show a success message
             conn.commit()
+            self.fatch_data()
             messagebox.showinfo("Success", "Data has been inserted successfully.")
         
         except mysql.connector.Error as e:
@@ -427,15 +439,54 @@ class Hospital:
             if conn.is_connected():
                 conn.close()
                 print("Database connection closed")
-
-
-
-
-
         
 
-        
 
+
+    def fatch_data(self):
+            conn = mysql.connector.connect(host="127.0.0.1", user="root", password="@Pp9842030782", database="mydata")
+            my_cursor = conn.cursor()
+            my_cursor.execute("select * from hospital")
+            rows = my_cursor.fetchall()
+            if len(rows)!=0:
+                self.hospital_table.delete(*self.hospital_table.get_children())
+                for i in rows:
+                    self.hospital_table.insert("", END, values = i)
+                conn.commit()
+            conn.close()
+
+             
+            
+
+        
+    def get_cursor(self,event = "" ):
+        cursor_row = self.hospital_table.focus()
+        content = self.hospital_table.item(cursor_row)
+        row = content["values"]
+        self.Nameoftablets.set(row[0]),
+        self.Dose.set(row[1]),
+        self.Reference.set(row[2]),
+        self.NumberofTablets.set(row[3]),
+        self.Lot.set(row[4]),
+        self.IssueDate.set(row[5]),
+        self.ExpDate.set(row[6]),
+        self.DailyDose.set(row[7]),
+        #self.SideEffect.set(row[8]),
+        #self.FurtherInformation.set(row[9]),
+        self.StorageAdvice.set(row[8]),
+        #self.DrivingUsingMachine.set(row[11]),
+       # self.HowToUseMedication.set(row[12]),
+        #self.PatientId.set(row[]),
+        self.nhsNumber.set(row[14]),
+        self.PatientName.set(row[15]),
+        self.DateOfBirth.set(row[16]),
+        self.PatientAddress.set(row[17])
+
+        
+        
+        
+        
+        
         # Adjust the weight configuration to make sure DetailsFrame gets more space
         self.root.update_idletasks()  # Ensure layout updates are applied
         
